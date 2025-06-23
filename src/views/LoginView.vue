@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import { RouterLink } from 'vue-router'
+</script>
 <template>
   <div>
     <h1>Connexion</h1>
@@ -9,7 +11,9 @@
       <label for="password">Mot de passe</label>
       <input type="password" name="password" id="password" />
       <button>Se connecter</button>
-      <p>Envie de nous rejoindre ? <RouterLink to="/signup">Créer un compte</RouterLink></p>
+      <p>
+        Envie de nous rejoindre ? <RouterLink :to="{ name: 'signup' }">Créer un compte</RouterLink>
+      </p>
     </form>
   </div>
 </template>

@@ -4,7 +4,7 @@ import { RouterView, RouterLink } from 'vue-router'
 <template>
   <header>
     <h1><RouterLink :to="{ name: 'home' }">Leboncoin</RouterLink></h1>
-    <p><RouterLink to="/login">Se connecter</RouterLink></p>
+    <p><RouterLink :to="{ name: 'login' }">Se connecter</RouterLink></p>
   </header>
 </template>
 <style scoped>
