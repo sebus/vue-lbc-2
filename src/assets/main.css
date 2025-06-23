@@ -1,0 +1,7 @@
+@import './base.css';
+
+main,
+header,
+footer {
+  padding: 24px;
+}
