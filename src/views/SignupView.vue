@@ -6,26 +6,31 @@ import axios from 'axios'
 const username = ref('')
 const email = ref('')
 const password = ref('')
+const errorMessage = ref('')
 
 const GlobalStore = inject('GlobalStore')
-console.log('GlobalStore >>> ', GlobalStore)
+// console.log('GlobalStore >>> ', GlobalStore)
 
 const handleSubmit = async () => {
-  console.log({
-    username: username.value,
-    email: email.value,
-    password: password.value,
-  })
+  // console.log({
+  //   username: username.value,
+  //   email: email.value,
+  //   password: password.value,
+  // })
 
-  try {
-    const { data } = await axios.post(
-      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/auth/local/register',
-      { username: username.value, email: email.value, password: password.value },
-    )
-    console.log('response >>> ', data)
-    GlobalStore.changeToken(data.jwt)
-  } catch (error) {
-    console.log('catch >>> ', error)
+  if (username.value && email.value && password.value) {
+    try {
+      const { data } = await axios.post(
+        'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/auth/local/register',
+        { username: username.value, email: email.value, password: password.value },
+      )
+      // console.log('response >>> ', data)
+      GlobalStore.changeToken(data.jwt)
+    } catch (error) {
+      console.log('catch >>> ', error)
+    }
+  } else {
+    errorMessage.value = 'Veuillez remplir tous les champs'
   }
 }
 </script>
@@ -41,6 +46,7 @@ const handleSubmit = async () => {
       <label for="password">Mot de passe <sup>*</sup></label>
       <input type="password" name="password" id="password" v-model="password" />
       <button>S'incrire</button>
+      <p v-if="errorMessage">{{ errorMessage }}</p>
       <p>
         Vous avez déjà un compte ? <RouterLink :to="{ name: 'login' }">Connectez-vous</RouterLink>
       </p>
