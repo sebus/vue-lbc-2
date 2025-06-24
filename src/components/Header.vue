@@ -1,10 +1,17 @@
 <script setup>
 import { RouterView, RouterLink } from 'vue-router'
+import { inject } from 'vue'
+
+const GlobalStore = inject('GlobalStore')
+console.log(GlobalStore.userToken)
 </script>
 <template>
   <header>
     <h1><RouterLink :to="{ name: 'home' }">Leboncoin</RouterLink></h1>
-    <p><RouterLink :to="{ name: 'login' }">Se connecter</RouterLink></p>
+    <p v-if="!GlobalStore.userToken.value">
+      <RouterLink :to="{ name: 'login' }">Se connecter</RouterLink>
+    </p>
+    <p v-else><a @click="GlobalStore.changeToken('')">Deconnect user</a></p>
   </header>
 </template>
 <style scoped>
